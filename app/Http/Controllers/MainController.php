@@ -8,7 +8,7 @@ class MainController extends Controller
 {
     public function  sortJson()
     {
-        $jsonString = file_get_contents(base_path('resources/phonebook.json'));
+        $jsonString = file_get_contents(base_path('/resources/phonebook.json'));
         $data = json_decode($jsonString, true);
         sort($data);
         file_put_contents('/resources/phonebook.json', json_encode($data));
