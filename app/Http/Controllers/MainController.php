@@ -8,16 +8,16 @@ class MainController extends Controller
 {
     public function  sortJson()
     {
-        $jsonString = file_get_contents(base_path('/home/site/wwwroot/repository/resources/phonebook.json'));
+        $jsonString = file_get_contents(base_path('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json'));
         $data = json_decode($jsonString, true);
         sort($data);
-        file_put_contents('/home/site/wwwroot/repository/resources/phonebook.json', json_encode($data));
+        file_put_contents('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json', json_encode($data));
     }
 
     public function getAll()
     {
         $this->sortJson();
-        $jsonString = file_get_contents(base_path('/home/site/wwwroot/repository/resources/phonebook.json'));
+        $jsonString = file_get_contents(base_path('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json'));
         $data = json_decode($jsonString, true);
 
 
@@ -26,7 +26,7 @@ class MainController extends Controller
 
     public function createNew(Request $request)
     {
-        $file = '/home/site/wwwroot/repository/resources/phonebook.json';
+        $file = 'http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json';
         $jsonString = file_get_contents(base_path($file));
         $data = json_decode($jsonString, true);
 
@@ -40,11 +40,11 @@ class MainController extends Controller
         if ($data != null) {
 
             array_push($data, array('id' => $this->getLastId() + 1, 'name' => $request->name, 'type' => $request->type, 'number' => $request->number));
-            file_put_contents('/home/site/wwwroot/repository/resources/phonebook.json', json_encode($data));
+            file_put_contents('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json', json_encode($data));
         } else {
 
             $data = json_encode(array(0 => array('id' => 1, 'name' => $request->name, 'type' => $request->type, 'number' => $request->number)));
-            file_put_contents('/home/site/wwwroot/repository/resources/phonebook.json', $data);
+            file_put_contents('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json', $data);
         }
         $this->sortJson();
         return response()->json(json_decode($jsonString, true));
@@ -56,7 +56,7 @@ class MainController extends Controller
     public function editPhone(Request $request)
     {
 
-        $file = '/home/site/wwwroot/repository/resources/phonebook.json';
+        $file = 'http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json';
         $jsonString = file_get_contents(base_path($file));
         $data = json_decode($jsonString, true);
 
@@ -75,7 +75,7 @@ class MainController extends Controller
             }
         }
         $this->sortJson();
-        file_put_contents('/home/site/wwwroot/repository/resources/phonebook.json', json_encode($data));
+        file_put_contents('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json', json_encode($data));
 
         return response()->json(json_decode($jsonString, true));
     }
@@ -83,7 +83,7 @@ class MainController extends Controller
     public function deletePhone($id)
     {
 
-        $file = '/home/site/wwwroot/repository/resources/phonebook.json';
+        $file = 'http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json';
         $jsonString = file_get_contents(base_path($file));
         $data = json_decode($jsonString, true);
 
@@ -92,14 +92,14 @@ class MainController extends Controller
                 unset($data[$key]);
             }
         }
-        file_put_contents('/home/site/wwwroot/repository/resources/phonebook.json', json_encode($data));
+        file_put_contents('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json', json_encode($data));
         $this->sortJson();
         return response()->json(json_decode($jsonString, true));
     }
 
     public function getLastId()
     {
-        $jsonString = file_get_contents(base_path('/home/site/wwwroot/repository/resources/phonebook.json'));
+        $jsonString = file_get_contents(base_path('http://microservicelaravel.azurewebsites.net/repository/resources/phonebook.json'));
         $data = json_decode($jsonString, true);
         $max = max($data);
         return $max['id'];
