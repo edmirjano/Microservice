@@ -11,7 +11,7 @@ class MainController extends Controller
         $jsonString = file_get_contents(base_path('resources/phonebook.json'));
         $data = json_decode($jsonString, true);
         sort($data);
-        file_put_contents('/Users/edi/Desktop/MicroserIcloud/resources/phonebook.json', json_encode($data));
+        file_put_contents('/resources/phonebook.json', json_encode($data));
     }
 
     public function getAll()
@@ -40,11 +40,11 @@ class MainController extends Controller
         if ($data != null) {
 
             array_push($data, array('id' => $this->getLastId() + 1, 'name' => $request->name, 'type' => $request->type, 'number' => $request->number));
-            file_put_contents('/Users/edi/Desktop/MicroserIcloud/resources/phonebook.json', json_encode($data));
+            file_put_contents('/resources/phonebook.json', json_encode($data));
         } else {
 
             $data = json_encode(array(0 => array('id' => 1, 'name' => $request->name, 'type' => $request->type, 'number' => $request->number)));
-            file_put_contents('/Users/edi/Desktop/MicroserIcloud/resources/phonebook.json', $data);
+            file_put_contents('/resources/phonebook.json', $data);
         }
         $this->sortJson();
         return response()->json(json_decode($jsonString, true));
@@ -75,7 +75,7 @@ class MainController extends Controller
             }
         }
         $this->sortJson();
-        file_put_contents('/Users/edi/Desktop/MicroserIcloud/resources/phonebook.json', json_encode($data));
+        file_put_contents('/resources/phonebook.json', json_encode($data));
 
         return response()->json(json_decode($jsonString, true));
     }
@@ -92,7 +92,7 @@ class MainController extends Controller
                 unset($data[$key]);
             }
         }
-        file_put_contents('/Users/edi/Desktop/MicroserIcloud/resources/phonebook.json', json_encode($data));
+        file_put_contents('/resources/phonebook.json', json_encode($data));
         $this->sortJson();
         return response()->json(json_decode($jsonString, true));
     }
